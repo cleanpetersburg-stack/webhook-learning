@@ -1,0 +1,15 @@
+@startuml
+title Доставка вебхука
+actor Потребитель as Consumer
+participant Провайдер as Provider
+database БД as DB
+participant Webhook as Webhook
+
+Consumer -> Provider: Регистрация вебхука
+Provider -> DB: Сохранить подписку
+Provider --> Consumer: Секрет + ID
+
+Provider -> Webhook: POST событие + подпись
+Webhook -> Webhook: Проверить подпись
+Webhook --> Provider: HTTP 200 OK
+@enduml
